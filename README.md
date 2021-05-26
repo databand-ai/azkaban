@@ -1,3 +1,5 @@
+# This repository is intended only to provide JARs published to the Maven Central.
+
 Azkaban 3 [![Build Status](http://img.shields.io/travis/azkaban/azkaban.svg?style=flat)](https://travis-ci.org/azkaban/azkaban)
 ========
 

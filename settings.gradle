@@ -15,12 +15,16 @@
  *
  */
 
-include 'azkaban-spi'
-include 'azkaban-common'
-include 'azkaban-exec-server'
-include 'azkaban-hadoop-security-plugin'
-include 'azkaban-migration'
-include 'azkaban-solo-server'
-include 'azkaban-sql'
-include 'azkaban-web-server'
-include 'azkaban-test'
+rootProject.name = 'azkaban'
+
+include(
+        'azkaban-spi',
+        'azkaban-common',
+        'azkaban-exec-server',
+        'azkaban-hadoop-security-plugin',
+        'azkaban-migration',
+        'azkaban-solo-server',
+        'azkaban-sql',
+        'azkaban-web-server',
+        'azkaban-test'
+)
