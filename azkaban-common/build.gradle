@@ -14,42 +14,42 @@
  * the License.
  */
 dependencies {
-    compile project(':az-core')
-    compile project(':azkaban-spi')
-    compile project(':azkaban-db')
-    compile project(':cached-http-filesystem')
+    api project(':az-core')
+    api project(':azkaban-spi')
+    api project(':azkaban-db')
+    api project(':cached-http-filesystem')
 
-    compile deps.collections
-    compile deps.dbcp2
-    compile deps.dbutils
-    compile deps.fileupload
-    compile deps.guava
-    compile deps.gson
+    api deps.collections
+    api deps.dbcp2
+    api deps.dbutils
+    api deps.fileupload
+    api deps.guava
+    api deps.gson
     compileOnly deps.hadoopAnnotations
     compileOnly deps.hadoopAuth
     compileOnly deps.hadoopCommon
     compileOnly deps.hadoopHdfs
-    compile deps.httpclient
-    compile deps.jetty
-    compile deps.jettyUtil
-    compile deps.jopt
-    compile deps.mail
-    compile deps.math3
-    compile deps.metricsCore
-    compile deps.metricsJvm
-    compile deps.mysqlConnector
-    compile deps.snakeyaml
-    compile deps.velocity
+    api deps.httpclient
+    api deps.jetty
+    api deps.jettyUtil
+    api deps.jopt
+    api deps.mail
+    api deps.math3
+    api deps.metricsCore
+    api deps.metricsJvm
+    api deps.mysqlConnector
+    api deps.snakeyaml
+    api deps.velocity
 
-    testRuntime deps.h2
+    testRuntimeOnly deps.h2
 
-    testCompile deps.hadoopAnnotations
-    testCompile deps.hadoopAuth
-    testCompile deps.hadoopCommon
-    testCompile deps.hadoopHdfs
-    testCompile project(':test')
-    testCompile project(path: ':azkaban-db', configuration: 'testOutput')
-    testCompile deps.commonsCompress
+    testImplementation deps.hadoopAnnotations
+    testImplementation deps.hadoopAuth
+    testImplementation deps.hadoopCommon
+    testImplementation deps.hadoopHdfs
+    testImplementation project(':test')
+    testImplementation project(path: ':azkaban-db', configuration: 'testOutput')
+    testImplementation deps.commonsCompress
 }
 
 tasks.withType(JavaCompile) {

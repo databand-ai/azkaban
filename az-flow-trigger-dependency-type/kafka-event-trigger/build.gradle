@@ -25,21 +25,21 @@ ext.deps = [
 
 dependencies {
   compileOnly project(":az-flow-trigger-dependency-plugin")
-  testCompile 'junit:junit:4.12'
-  testCompile 'org.assertj:assertj-core:3.8.0'
-  compile 'org.mockito:mockito-core:2.10.0'
-  compile 'org.apache.kafka:kafka_2.11:0.10.2.0'
-  compile 'org.apache.kafka:kafka-clients:1.0.0'
-  compile 'org.apache.kafka:connect-json:1.0.0'
-  compile 'org.apache.curator:curator-recipes:2.8.0'
-  compile 'org.apache.curator:curator-test:2.8.0'
-  compile 'org.apache.avro:avro:1.8.1'
-  compile 'org.apache.avro:avro-tools:1.8.1'
-  compile 'com.squareup.okhttp3:okhttp:3.7.0'
-  compile 'com.fasterxml.jackson.core:jackson-core:2.9.2'
-  compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.2'
-  compile 'com.fasterxml.jackson.core:jackson-databind:2.9.2'
-  compile 'com.google.guava:guava:25.1-jre'
+  testCompileOnly 'junit:junit:4.12'
+  testCompileOnly 'org.assertj:assertj-core:3.8.0'
+  implementation 'org.mockito:mockito-core:2.10.0'
+  implementation 'org.apache.kafka:kafka_2.11:0.10.2.0'
+  implementation 'org.apache.kafka:kafka-clients:1.0.0'
+  implementation 'org.apache.kafka:connect-json:1.0.0'
+  implementation 'org.apache.curator:curator-recipes:2.8.0'
+  implementation 'org.apache.curator:curator-test:2.8.0'
+  implementation 'org.apache.avro:avro:1.8.1'
+  implementation 'org.apache.avro:avro-tools:1.8.1'
+  implementation 'com.squareup.okhttp3:okhttp:3.7.0'
+  implementation 'com.fasterxml.jackson.core:jackson-core:2.9.2'
+  implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.2'
+  implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.2'
+  implementation 'com.google.guava:guava:25.1-jre'
 }
 
 task fatJar(type: Jar) {

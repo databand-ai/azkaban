@@ -22,30 +22,18 @@ dependencies {
     compileOnly project(":azkaban-web-server")
     compileOnly project(":azkaban-hadoop-security-plugin")
 
-    compile deps.mongoDriver
-    compile deps.parquetAvro
-    compile deps.parquetBundle
+    api deps.mongoDriver
+    api deps.parquetAvro
+    api deps.parquetBundle
+    implementation 'org.json:json:20210307'
     compileOnly deps.hadoopCommon
     compileOnly deps.hadoopMRClientCommon
     compileOnly deps.hadoopMRClientCore
 
-    testCompile deps.hadoopCommon
+    testImplementation deps.hadoopCommon
     compileOnly deps.hiveMetastore
     compileOnly(deps.hiveExecCore) {
         exclude group: 'org.pentaho', module: 'pentaho-aggdesigner-algorithm'
         exclude group: 'eigenbase', module: 'eigenbase-properties'
-    }
-}
-
-distributions {
-    main {
-        contents {
-            from(jar) {
-                into 'lib'
-            }
-            from(configurations.runtime) {
-                into 'lib'
-            }
-        }
     }
 }

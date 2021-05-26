@@ -1,8 +1,8 @@
 apply plugin: 'distribution'
 
 dependencies {
-    compile project(':az-core')
-    compile project(":azkaban-common")
+    api project(':az-core')
+    api project(":azkaban-common")
 
     compileOnly deps.hadoopCommon
     compileOnly deps.hadoopMRClientCommon

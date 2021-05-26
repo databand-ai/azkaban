@@ -33,14 +33,14 @@ artifacts {
 }
 
 dependencies {
-    compile deps.jexl
-    compile deps.commonsCodec
-    compile deps.commonsLang
-    compile deps.jodaTime
-    compile deps.io
-    compile deps.jacksonCoreAsl
-    compile deps.jacksonMapperAsl
-    compile deps.metricsCore
-    compile deps.metricsJvm
-    compile deps.quartz
+    api deps.jexl
+    api deps.commonsCodec
+    api deps.commonsLang
+    api deps.jodaTime
+    api deps.io
+    api deps.jacksonCoreAsl
+    api deps.jacksonMapperAsl
+    api deps.metricsCore
+    api deps.metricsJvm
+    api deps.quartz
 }

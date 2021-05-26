@@ -18,6 +18,6 @@
 dependencies {
   compileOnly deps.hadoopCommon
 
-  testCompile deps.hadoopCommon
-  testCompile project(':test')
+  testImplementation deps.hadoopCommon
+  testImplementation project(':test')
 }

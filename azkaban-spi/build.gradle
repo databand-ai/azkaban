@@ -19,8 +19,8 @@ dependencies {
     /**
      * The dependency list of the spi package should be NONE or VERY MINIMAL!! See @README.md of this package.
      **/
-  compile project(':az-core')
-  compile deps.jacksonCoreAsl
+  api project(':az-core')
+  api deps.jacksonCoreAsl
 
-  testCompile project(':test')
+  testCompileOnly project(':test')
 }

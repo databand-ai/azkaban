@@ -21,33 +21,11 @@ buildscript {
     }
   }
   dependencies {
-    classpath 'com.cinnober.gradle:semver-git:2.2.3'
-    classpath 'net.ltgt.gradle:gradle-errorprone-plugin:0.0.14'
+    classpath 'com.vanniktech:gradle-maven-publish-plugin:0.15.1'
   }
 }
 
-plugins {
-  id 'com.gradle.build-scan' version '1.9'
-  id 'com.github.kt3k.coveralls' version '2.6.3'
-  id 'jacoco'
-}
-
-buildScan {
-  licenseAgreementUrl = 'https://gradle.com/terms-of-service'
-  licenseAgree = 'yes'
-}
-
-apply plugin: 'com.cinnober.gradle.semver-git'
-
-apply plugin: 'compare-gradle-builds'
-
-compareGradleBuilds {
-  targetBuild.gradleVersion = "4.0"
-}
-
 allprojects {
-  apply plugin: 'jacoco'
-
   repositories {
     mavenCentral()
     mavenLocal()
@@ -128,17 +106,10 @@ ext.deps = [
     jsonassert           : 'org.skyscreamer:jsonassert:1.5.0']
 
 subprojects {
-  apply plugin: 'java'
-  apply plugin: 'net.ltgt.errorprone'
+  apply plugin: 'java-library'
 
   // Set the same version for all sub-projects to root project version
   version = rootProject.version
-
-  configurations.errorprone {
-    dependencies {
-      errorprone 'com.google.errorprone:error_prone_core:2.1.0'
-    }
-  }
 
   plugins.withType(JavaPlugin) {
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -164,18 +135,18 @@ subprojects {
     }
 
     dependencies {
-      compile deps.log4j
-      compile deps.guice
-      compile deps.slf4j
-      runtime deps.slf4jLog4j
+      implementation deps.log4j
+      implementation deps.guice
+      implementation deps.slf4j
+      runtimeOnly deps.slf4jLog4j
 
-      testCompile deps.assertj
-      testCompile deps.junit
-      testCompile deps.mockito
-      testCompile deps.powermock
-      testCompile deps.powermockmodulejunit4
-      testCompile deps.jsonassert
-      testCompile deps.awaitility
+      testImplementation deps.assertj
+      testImplementation deps.junit
+      testImplementation deps.mockito
+      testImplementation deps.powermock
+      testImplementation deps.powermockmodulejunit4
+      testImplementation deps.jsonassert
+      testImplementation deps.awaitility
     }
 
     test {
@@ -196,13 +167,6 @@ subprojects {
   }
 
   /**
-   * Terminate compilation if warnings occur.*/
-  tasks.withType(JavaCompile) {
-    options.compilerArgs += ["-Werror"]
-  }
-
-
-  /**
    * Print test execution summary when informational logging is enabled.*/
   test {
     testLogging {
@@ -221,52 +185,13 @@ subprojects {
   }
 }
 
-/**
- * Gradle wrapper task.*/
-task wrapper(type: Wrapper) {
-  distributionType('ALL')
-}
+def projectsToPublish = ["azkaban-common", "azkaban-spi", "azkaban-exec-server", "azkaban-web-server"]
 
-if (System.env.TRAVIS == 'true') {
-  allprojects {
-    tasks.withType(Test) {
-      // Reduce the memory pressure on the Travis CI to reduce build failures.
-      maxParallelForks = 2
-      minHeapSize = '128m'
+configure(subprojects.findAll { projectsToPublish.contains(it.name) }) {
+  apply plugin: "com.vanniktech.maven.publish"
+  plugins.withId("com.vanniktech.maven.publish") {
+    mavenPublish {
+      sonatypeHost = "S01"
     }
   }
-}
-
-def publishedProjects = subprojects.findAll()
-
-// Aggregate all subproject reports into one.
-task jacocoAggregateReport(type: JacocoReport, group: 'Coverage reports') {
-  description = 'Generates an aggregate report from all subprojects'
-
-  dependsOn(publishedProjects.test)
-
-  // JacocoReport-type task requires users to specify which classes to be covered
-  // See details in
-  // https://docs.gradle.org/current/dsl/org.gradle.testing.jacoco.tasks.JacocoReport.html
-  sourceDirectories = files(publishedProjects.sourceSets.main.allSource.srcDirs)
-  classDirectories = files(publishedProjects.sourceSets.main.output)
-  executionData = files(publishedProjects.jacocoTestReport.executionData)
-
-  doFirst {
-    executionData = files(executionData.findAll { it.exists() })
-  }
-
-  reports {
-    html.enabled = true // human readable
-    xml.enabled = true // required by coveralls
-  }
-}
-
-coveralls {
-  sourceDirs = publishedProjects.sourceSets.main.allSource.srcDirs.flatten()
-  jacocoReportPath = "${buildDir}/reports/jacoco/jacocoAggregateReport/jacocoAggregateReport.xml"
-}
-
-tasks.coveralls {
-  dependsOn jacocoAggregateReport
 }

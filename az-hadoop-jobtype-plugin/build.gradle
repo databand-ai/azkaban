@@ -17,34 +17,34 @@
 apply plugin: 'distribution'
 
 dependencies {
-    compile project(':az-core')
-    compile project(":azkaban-common")
-    compile project(":azkaban-hadoop-security-plugin")
+    api project(':az-core')
+    api project(":azkaban-common")
+    api project(":azkaban-hadoop-security-plugin")
 
-    compile deps.hadoopCommon
-    compile deps.hadoopMRClientCommon
-    compile deps.hadoopMRClientCore
-    compile(deps.hiveCli) {
+    api deps.hadoopCommon
+    api deps.hadoopMRClientCommon
+    api deps.hadoopMRClientCore
+    api(deps.hiveCli) {
         transitive = false
     }
-    compile("org.apache.hive:hive-metastore:0.12.0") {
+    api("org.apache.hive:hive-metastore:0.12.0") {
         force = true
     }
-    compile("org.apache.hive:hive-shims:0.12.0") {
+    api("org.apache.hive:hive-shims:0.12.0") {
         force = true
     }
-    compile(deps.hiveExecCore) {
+    api(deps.hiveExecCore) {
         exclude group: 'org.pentaho', module: 'pentaho-aggdesigner-algorithm'
         exclude group: 'eigenbase', module: 'eigenbase-properties'
     }
-    compile(deps.pig) {
+    api(deps.pig) {
         transitive = false
     }
-    compile deps.sparkCore
-    compile deps.commonsCli
+    api deps.sparkCore
+    api deps.commonsCli
 
-    testCompile(project(path: ':azkaban-common', configuration: 'testCompile'))
-    testCompile(project(':azkaban-common').sourceSets.test.output)
+    testImplementation(project(path: ':azkaban-common', configuration: 'testCompile'))
+    testImplementation(project(':azkaban-common').sourceSets.test.output)
 }
 
 /**
