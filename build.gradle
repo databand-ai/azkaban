@@ -185,7 +185,7 @@ subprojects {
   }
 }
 
-def projectsToPublish = ["azkaban-common", "azkaban-spi", "azkaban-exec-server", "azkaban-web-server"]
+def projectsToPublish = ["az-core", "azkaban-common", "azkaban-spi", "azkaban-exec-server", "azkaban-web-server"]
 
 configure(subprojects.findAll { projectsToPublish.contains(it.name) }) {
   apply plugin: "com.vanniktech.maven.publish"

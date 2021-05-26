@@ -14,24 +14,6 @@
  * the License.
  */
 
-apply plugin: "maven-publish"
-
-/**
- * Place foundation classes in this sub-module.
- */
-task testJar(type: Jar, dependsOn: testClasses) {
-    from sourceSets.test.output
-    classifier = 'test'
-}
-
-configurations {
-    testOutput.extendsFrom(testCompile)
-}
-
-artifacts {
-    testOutput testJar
-}
-
 dependencies {
     api deps.jexl
     api deps.commonsCodec
